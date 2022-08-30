@@ -1,6 +1,14 @@
-# `cargo deb` Build Environment (debian armv7)
+<!--suppress HtmlDeprecatedAttribute -->
+<h1 align="center">
+  CargoDebARMv7
+</h1>
+<h3 align="center">
+    <strong>Action for creating .deb package for Rust projects using cargo-deb for ARMv7.</strong>
+</h3>
 
-Provides a build environment for executing `cargo deb` [1] and producing statically linked binaries for the built Debian (`.deb`) package.
+> This repository is a simple fork of [cargo-deb-armv7-debian](https://github.com/ebbflow-io/cargo-deb-armv7-debian/).
+
+Provides a build environment for executing `cargo-deb` [1] and producing statically linked binaries for the built Debian (`.deb`) package.
 
 This build on a `debian:buster` base image and targets `armv7-unknown-linux-musleabihf`. The `musl` installation is possible thanks to the cross project [2].
 
@@ -28,17 +36,18 @@ None, besides the `deb` package that is built. The built `.deb` will be located 
 ## Example Usage
 
 ```yaml
-name: Deb Static Build
+name: Build deb package
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Deb Build
-      uses: ebbflow-io/cargo-deb-armv7-debian@1.47.0-1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build .deb
+        uses: asthowen/CargoDebARMv7@main
 ```
-
-A working example can be found in use by Ebbflow to build its client package for various OS and CPU architectures [here](https://github.com/ebbflow-io/ebbflow/blob/master/.github/workflows/continuous-integration.yml).

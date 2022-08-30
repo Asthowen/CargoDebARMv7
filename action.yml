@@ -1,5 +1,5 @@
 # action.yml
-name: 'Rust Cargo Deb Package Build (armv7, Debian)'
+name: 'Rust build .deb with cargo-deb ARMv7'
 description: 'Builds a debian package using cargo deb for Rust packages, statically linked (musl), targeting ARMv7'
 branding:
   icon: 'package'
@@ -11,6 +11,6 @@ inputs:
     default: 'cargo deb --target=armv7-unknown-linux-musleabihf'
 runs:
   using: 'docker'
-  image: 'docker://ebbflow/cargo-deb-armv7-debian:1.47.0-1'
+  image: 'docker://asthowen/cargo-deb-armv7:latest'
   args:
     - ${{ inputs.cmd }}
