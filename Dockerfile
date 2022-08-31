@@ -14,6 +14,8 @@ RUN cargo install cargo-deb --version 1.38.4
 COPY musl.sh /
 RUN /musl.sh TARGET=arm-linux-musleabihf "COMMON_CONFIG += --with-arch=armv7-a --with-float=hard --with-mode=thumb"
 
+RUN echo "[build]\ntarget = \"armv7-unknown-linux-musleabihf\"" > ~/.cargo/config
+RUN echo "[target.armv7-unknown-linux-musleabihf]\nlinker = \"arm-linux-musleabihf-gcc\"\nstrip = { path = \"arm-linux-musleabihf-strip\" }" > ~/.cargo/config
 WORKDIR /volume
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
